@@ -12,4 +12,4 @@ pro[] build(graph: Graph): non = {
     graph.add_run(app);
     graph.step("docs");
     graph.step("lint");
-}
+};
