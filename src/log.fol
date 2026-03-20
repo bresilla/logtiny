@@ -1,9 +1,9 @@
 ali Level: int
 
-var[exp] DEBUG: Level = 0
-var[exp] INFO: Level = 1
-var[exp] WARN: Level = 2
-var[exp] ERROR: Level = 3
+var[exp] DEBUG: Level = 0;
+var[exp] INFO: Level = 1;
+var[exp] WARN: Level = 2;
+var[exp] ERROR: Level = 3;
 
 typ[exp] Logger: rec = {
     name: str;
@@ -15,14 +15,14 @@ var[exp] DEFAULT: Logger = {
     name = "app",
     verbose = false,
     min_level = 1,
-}
+};
 
 fun[exp] make(name: str): Logger = {
     return {
         name = name,
         verbose = false,
         min_level = 1,
-    }
+    };
 }
 
 fun[exp] enable_verbose(logger: Logger): Logger = {
@@ -30,37 +30,37 @@ fun[exp] enable_verbose(logger: Logger): Logger = {
         name = logger.name,
         verbose = true,
         min_level = 0,
-    }
+    };
 }
 
 fun[exp] level_code(level: Level): int = {
-    return level
+    return level;
 }
 
 fun[exp] level_name(level: Level): str = {
     when(level) {
-        case(DEBUG) { return "debug" }
-        case(INFO) { return "info" }
-        case(WARN) { return "warn" }
-        * { return "error" }
+        case(DEBUG) { return "debug"; }
+        case(INFO) { return "info"; }
+        case(WARN) { return "warn"; }
+        * { return "error"; }
     }
 }
 
 fun[exp] allows(logger: Logger, level: Level): bol = {
-    return .ge(level_code(level), logger.min_level)
+    return .ge(level_code(level), logger.min_level);
 }
 
 fun[exp] emit(logger: Logger, level: Level, message: str): int / str = {
     when(allows(logger, level)) {
         case(true) {
-            .echo(logger.name)
-            .echo(level_name(level))
-            return .echo(.len(message))
+            .echo(logger.name);
+            .echo(level_name(level));
+            return .echo(.len(message));
         }
-        * { report "message filtered" }
+        * { report "message filtered"; }
     }
 }
 
 fun[exp] emit_default(level: Level, message: str): int = {
-    return emit(DEFAULT, level, message) || 0
+    return emit(DEFAULT, level, message) || 0;
 }
