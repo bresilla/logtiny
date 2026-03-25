@@ -1,3 +1,3 @@
 fun[] main(): int = {
-    return demo();
+    return .echo(demo());
 };

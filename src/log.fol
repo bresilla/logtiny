@@ -53,9 +53,7 @@ fun[exp] allows(logger: Logger, level: Level): bol = {
 fun[exp] emit(logger: Logger, level: Level, message: str): int / str = {
     when(allows(logger, level)) {
         case(true) {
-            .echo(logger.name);
-            .echo(level_name(level));
-            return .echo(.len(message));
+            return .len(logger.name) + .len(level_name(level)) + .len(message) + 2;
         }
         * { report "message filtered"; }
     }
