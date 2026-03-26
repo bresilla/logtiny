@@ -2,11 +2,22 @@ pro[] build(): non = {
     var build = .build();
     build.meta({
         name = "logtiny",
-        version = "0.1.0",
+        version = "0.1.1",
     });
     var graph = build.graph();
+    var root = graph.add_module({
+        name = "root",
+        root = "src/lib.fol",
+    });
     var target = graph.standard_target();
     var optimize = graph.standard_optimize();
+    var lib = graph.add_static_lib({
+        name = "logtiny",
+        root = "src/lib.fol",
+        target = target,
+        optimize = optimize,
+        fol_model = "alloc",
+    });
     var app = graph.add_exe({
         name = "logtiny-demo",
         root = "src/main.fol",
@@ -15,8 +26,18 @@ pro[] build(): non = {
         fol_model = "std",
     });
 
+    build.export_module({
+        name = "root",
+        module = root,
+    });
+    build.export_artifact({
+        name = "runtime",
+        artifact = lib,
+    });
+    graph.install(lib);
     graph.install(app);
     graph.add_run(app);
     graph.step("docs");
     graph.step("lint");
+    return;
 };
