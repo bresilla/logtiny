@@ -2,7 +2,7 @@ pro[] build(): non = {
     var build = .build();
     build.meta({
         name = "logtiny",
-        version = "0.1.1",
+        version = "0.1.2",
     });
     var graph = build.graph();
     var root = graph.add_module({
@@ -16,7 +16,7 @@ pro[] build(): non = {
         root = "src/lib.fol",
         target = target,
         optimize = optimize,
-        fol_model = "alloc",
+        fol_model = "mem",
     });
     var app = graph.add_exe({
         name = "logtiny-demo",
