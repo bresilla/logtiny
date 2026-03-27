@@ -2,7 +2,7 @@ pro[] build(): non = {
     var build = .build();
     build.meta({
         name = "logtiny",
-        version = "0.1.3",
+        version = "0.1.4",
     });
     var graph = build.graph();
     var root = graph.add_module({
@@ -23,7 +23,7 @@ pro[] build(): non = {
         root = "src/main.fol",
         target = target,
         optimize = optimize,
-        fol_model = "std",
+        fol_model = "memo",
     });
 
     build.export_module({
